@@ -1,0 +1,18 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+total_data = pd.read_csv("https://raw.githubusercontent.com/4GeeksAcademy/data-preprocessing-project-tutorial/main/AB_NYC_2019.csv")
+
+total_data.drop("host_id", axis = 1).duplicated().sum() # para sacar los duplicados que en este caso no había
+
+total_data.drop(["reviews_per_month", "calculated_host_listings_count", "availability_365", "last_review","name"], axis = 1, inplace = True)
+# limpieza de los datos que no nos son relevantes para analizar lo que queremos
+
+fig, axis = plt.subplots(2, 2, figsize = (15, 10))
+
+sns.histplot(ax = axis[0,0], data = total_data, x = "price").set_xlim(100,2000)
+sns.histplot(ax = axis[0,1], data = total_data, x = "minimum_nights").set_xlim(0,40)
+sns.histplot(ax = axis[1,0], data = total_data, x = "neighbourhood_group")
+sns.histplot(ax = axis[1,1], data = total_data, x = "number_of_reviews").set_xlim(0,300)
+# visualización de datos
